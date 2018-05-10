@@ -4,9 +4,6 @@ const matchVersion = require('./match_version');
 function bundle() {
   const builder = new Builder('./');
   builder.config({
-    paths: {
-      'rxjs': 'rxjs/index'
-    },
     map: {
       'rxjs': 'node_modules/rxjs'
     },
