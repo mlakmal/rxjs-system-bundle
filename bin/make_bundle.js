@@ -5,28 +5,31 @@ function bundle() {
   const builder = new Builder('./');
   builder.config({
     paths: {
-      'rxjs/*': 'node_modules/rxjs/*.js',
-      'symbol-observable/*': 'node_modules/symbol-observable/*',
+      'rxjs': 'rxjs/index'
     },
     map: {
       'rxjs': 'node_modules/rxjs'
     },
     packages: {
       'rxjs': {
-        main: 'Rx.js',
+        main: 'index.js',
         defaultExtension: 'js'
       },
-      'symbol-observable': {
-        main: 'index.js'
+      'rxjs/operators': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      'rxjs/Observable': {
+        defaultExtension: 'js'
       }
     }
   });
 
   console.log("Bundling Rx");
-  return builder.bundle('rxjs', 'Rx.system.js', {
+  return builder.bundle('rxjs + rxjs/operators', 'rxjs.local.umd.js', {
     sourceMaps: true
   }).then(ignored => {
-    builder.bundle('rxjs', 'Rx.system.min.js', {
+    builder.bundle('rxjs + rxjs/operators', 'rxjs.local.umd.min.js', {
       sourceMaps: true,
       minify: true
     });
